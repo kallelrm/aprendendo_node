@@ -1,12 +1,13 @@
-module.exports = function(app){
-     
-    app.get('/noticias', function(req, res){
+module.exports = function(application){
 
-        var connection = app.config.dbConnection();
-        let noticiasModel = app.app.models.noticiasModel;
+    application.get('/noticias', function(req,res){
+
+        var connection = application.config.dbConnection();
+        var noticiasModel = application.app.models.noticiasModel;
 
         noticiasModel.getNoticias(connection, function(error, result){
-            res.render("noticias/noticias", {noticias : result});
-        }); 
+            res.render('noticias/noticias', { noticias : result });
+        });
+
     });
-};
+}
