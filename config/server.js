@@ -9,7 +9,7 @@ app.set('view engine', 'ejs');
 app.set('views', './app/views');
 
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(check);
+app.use(check()); //sempre lembrar de carregar e executar a função
 
 consign()
     .include('app/routes')
