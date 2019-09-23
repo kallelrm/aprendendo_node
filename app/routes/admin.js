@@ -1,8 +1,6 @@
-const {check, validationResult} = require('express-validator/check');
-
 module.exports = function(application){
     application.get('/formulario_inclusao_noticia', function(req,res){
-        res.render('admin/form_add_noticia', {validacao: {}});
+        res.render('admin/form_add_noticia', {validacao: {}, noticia: {}});
     });
 
     application.post('/noticias/salvar', function(req,res){
@@ -25,7 +23,7 @@ module.exports = function(application){
         })*/
         var noticia = req.body;
 
-        req.assert('titulo', 'Título é obrigatório').notEmpty();
+        req.assert('titulo', 'Título é obrigatório').notEmpty(); 
         req.assert('resumo', 'Resumo é obrigatório').notEmpty();
         req.assert('resumo', 'Resumo deve conter entre 10 e 100 caracteres').len(10, 100);
         req.assert('autor', 'Autor é obrigatório').notEmpty();
@@ -34,7 +32,7 @@ module.exports = function(application){
         let erros = req.validationError();
         
         if(erros){
-            res.render('admin/form_add_noticia');
+            res.render('admin/form_add_noticia',{validacao: erros, noticia:noticia});
             return;
         }
             
